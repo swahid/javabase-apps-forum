@@ -6,29 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- GET BOOTSTARP CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
-  <!-- FONT AWESOME CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-  
   <!-- CSS STYLE -->
   <link rel="stylesheet" th:href="@{resources/css/style.css}">
-  
   <!-- GET jQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  
   <!-- GET BOOTSTARP JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <!-- ==== Header Start ==== -->
-<nav class="navbar navbar-inverse navbar-primary ">
+<nav class="navbar navbar-inverse bg-primary ">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Logo</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-        <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </nav>
@@ -53,21 +47,19 @@
 <!-- ==== Content Start ==== -->
 <div class="container">
   <h2>Thread List</h2>
-  <a th:href="@{thread/create}">
-    <button class="btn btn-primary btn-flat"> Create Thread</button>
-  </a>
+  <button class="btn btn-primary"> Create Thread</button>
   <div class=cleafix>&nbsp;</div>
   <div class="table-responsive">          
-  <table class="table table-bordered table-hover table-responsive">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>#</th>
         <th>Creator</th>
         <th style="width:50%">Thread Title</th>
         <th>Thread Topic</th>
-        <th>Create Date</th>
+        <th>Post on</th>
         <th>Comment</th>
-        <th align="center">Action <em class="glyphicon glyphicon-cog"></em></th>
+        <th>Acton</th>
       </tr>
     </thead>
     <tbody>
@@ -77,11 +69,7 @@
         <td>Pitt</td>
         <td>35</td>
         <td>New York</td>
-        <td><a class="btn btn-default" >12<em class="glyphicon glyphicon-comment"></em></a></td>
-        <td align="center">
-          <a class="btn btn-default"><em class="glyphicon glyphicon-pencil"></em></a>
-          <a class="btn btn-danger"><em class="glyphicon glyphicon-trash"></em></a>
-        </td>
+        <td>USA</td>
       </tr>
     </tbody>
   </table>
