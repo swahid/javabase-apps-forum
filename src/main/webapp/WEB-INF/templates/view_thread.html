@@ -31,7 +31,7 @@
 
 <!-- ==== Content Start ==== -->
 
-<!-- Comments list Section -->
+<!-- Published Post Section -->
 <div class="clearfix">&nbsp;</div>
 <div class="container">
     <div class="row">
@@ -55,10 +55,10 @@
                     <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
                     <div class="clearfix">&nbsp;</div>
                     <div class="stats pull-right">
-                        <a href="#" class="btn btn-default stat-item">
+                        <a href="#" class="btn btn-default btn-primary stat-item">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
-                        <a href="#" class="btn btn-default stat-item">
+                        <a href="#" class="btn btn-default btn-danger stat-item">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </div>
@@ -68,17 +68,17 @@
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>
-<!-- END Comments list Section -->
+<!-- END Published Section -->
 
 
 
 
-<!-- END Comment List  -->
+<!-- Comment List  -->
 <div class="clearfix">&nbsp;</div>
 <div class="container col-sm-12">
     <div class="row">
         <div class="col-sm-12">
-            <h3>User Comments</h3>
+            <h4>User Comments</h4>
         </div><!-- /col-sm-12 -->
     </div><!-- /row -->
     <div class="row">
@@ -89,9 +89,15 @@
         </div><!-- /col-sm-1 -->
 
         <div class="col-sm-7">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                    <a href="#" class="btn btn-default btn-danger pull-right">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                    <a href="#" class="btn btn-default btn-primary pull-right">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
                 </div>
                 <div class="panel-body">
                     Panel content
@@ -107,14 +113,14 @@
 
 <!-- Comment Box  -->
 <div class="clearfix">&nbsp;</div>
-<div class="widget-area no-padding blank">
-    <h4>Enter Comments:</h4>
+<div class="widget-area">
+    <h4 class="col-sm-12">Enter Comments:</h4>
     <div class="status-upload">
         <form role=form>
-            <div class="from-group col-md-4">
+            <div class="from-group col-sm-4">
              <input placeholder="First Name" type="text" class="form-control" id="firstName"/>
             </div>
-            <div class="from-group col-md-4">
+            <div class="from-group col-sm-4">
              <input placeholder="Last Name" type="text" class="form-control col-sm-6" id="lastName"/>
             </div>
             <div class="clearfix">&nbsp;</div>
@@ -124,16 +130,18 @@
             <div class="from-group col-md-4">
              <input placeholder="Enter Password" type="password" class="form-control" id="password"/>
             </div>
-            <div class="clearfix">&nbsp;</div>
             <div class="from-group col-md-8">
+            <div class="clearfix">&nbsp;</div>
              <textarea placeholder="Enter Your Comments" class="form-control"></textarea>
             </div>
-            <div class="clearfix">&nbsp;</div>
-            <div class="from-group pull-right">
-                <button type="submit" class="btn btn-info">Post Comment</button>
+            <div class="from-group col-sm-8">
+                <div class="clearfix">&nbsp;</div>
+                <button type="submit" class="btn btn-primary pull-right">Post Comment</button>
             </div>
         </form>
+        <div class="clearfix">&nbsp;</div>
     </div><!-- ./Status Upload  -->
+    <div class="clearfix">&nbsp;</div>
 </div><!-- ./Widget Area -->
 <!-- END Comment Box  -->
 
