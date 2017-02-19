@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since       1.0.0
  */
 @Controller
-@RequestMapping(value="Thread")
+@RequestMapping(value="thread")
 public class ThreadController {
     
     @Autowired
@@ -37,7 +37,7 @@ public class ThreadController {
     
     @RequestMapping(value="create",method=RequestMethod.GET)
     public String thread(){
-        return "new_topic";
+        return "create_thread";
     }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
@@ -47,7 +47,7 @@ public class ThreadController {
     	
     	model.addAttribute("viewContent", thread);
     	model.addAttribute("comments", commentService.getCommentbyContentId(thread.getThreadId()));
-        return "topic";
+        return "view_thread";
     }
     
     @ResponseBody
