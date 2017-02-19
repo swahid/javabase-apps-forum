@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
  * @since       1.0.0
  */
 @Entity
-@Table(name = "topic", catalog = "jforum")
+@Table(name = "topic")
 public class Topic implements java.io.Serializable {
 
     private static final long serialVersionUID = 5488415097757981124L;

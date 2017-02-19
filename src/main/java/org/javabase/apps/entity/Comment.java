@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "comment", catalog = "jforum")
+@Table(name = "comment")
 public class Comment implements java.io.Serializable {
 
     private static final long serialVersionUID = -7584024206750023448L;

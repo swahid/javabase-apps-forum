@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since       1.0.0
  */
 @Controller
-public class HomeController {
+public class IndexController {
     
-    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
     
     @Autowired
     UserService userservice;
@@ -31,10 +31,10 @@ public class HomeController {
     @Autowired
     HttpSession response;
     
-    @RequestMapping(value = { "/", "/home","content" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
         
-        model.addAttribute("content", contentService.getAllContent());
+//        model.addAttribute("content", contentService.getAllContent());
         log.info("Welcome home! ");
         return "index";
     }

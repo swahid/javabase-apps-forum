@@ -1,169 +1,86 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Forum :: Home Page</title>
-    
-    <span th:replace="commons :: common-css"></span>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- GET BOOTSTARP CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- CSS STYLE -->
+  <link rel="stylesheet" th:href="@{resources/css/style.css}">
+  <!-- GET jQUERY -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- GET BOOTSTARP JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-    <body>
+<body>
 
-        <div class="container-fluid">
-            
-            <span th:replace="commons :: common-header-fragment"></span>
-            
-             <section class="content">
-                
-               <div class="clearfix">&nbsp;</div>
-               
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8">
-                            <!-- POST -->
-                            <div class="post" th:each="content : ${content}">
-                                <div class="wrap-ut pull-left">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img th:src="@{/resources/images/avatar.jpg}" alt="" />
-                                            
-                                            <div class="status green">&nbsp;</div>
-                                        </div>
-                                        
-                                        <div class="icons">
-                                            <span th:text="${content.createUser}">User Name</span>
-                                            <!-- <img th:src="@{/resources/images/icon1.jpg}" alt="" /><img th:src="@{/resources/images/icon4.jpg}" alt="" /> -->
-                                        </div>
-                                    </div>
-                                    <div class="posttext pull-left">
-                                        <h2><a th:href="@{|/content/view/${content.contentId}|}"><span th:text="${content.contentTitle}">Content Title</span> </a></h2>
-                                        <p th:text="${content.contentDescription}">Content Description</p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="postinfo pull-left">
-                                    <div class="comments">
-                                        <div class="commentbg">
-                                            560
-                                            <div class="mark"></div>
-                                        </div>
-                                    </div>
-                                    <div class="views">
-                                        <a th:href="@{|/content/view/${content.contentId}/edit|}">Edit</a>&nbsp;
-                                        <a th:href="@{|/content/view/${content.contentId}/delete|}">Delete</a>
-                                    </div>
-                                    <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${content.createDate}"></span> </div>                                    
-                                </div>
-                                <div class="clearfix"></div>
-                            </div><!-- POST -->
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="sidebarblock">
-                                <h3>Categories</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <ul class="cats">
-                                        <li><a href="#">Trading for Money <span class="badge pull-right">20</span></a></li>
-                                        <li><a href="#">Vault Keys Giveway <span class="badge pull-right">10</span></a></li>
-                                        <li><a href="#">Misc Guns Locations <span class="badge pull-right">50</span></a></li>
-                                        <li><a href="#">Looking for Players <span class="badge pull-right">36</span></a></li>
-                                        <li><a href="#">Stupid Bugs &amp; Solves <span class="badge pull-right">41</span></a></li>
-                                        <li><a href="#">Video &amp; Audio Drivers <span class="badge pull-right">11</span></a></li>
-                                        <li><a href="#">2K Official Forums <span class="badge pull-right">5</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+<!-- ==== Header Start ==== -->
+<nav class="navbar navbar-inverse bg-primary ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- ==== Header END ==== -->
 
-                            <!-- -->
-                            <div class="sidebarblock">
-                                <h3>Poll of the Week</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <p>Which game you are playing this week?</p>
-                                    <form action="#" method="post" class="form">
-                                        <table class="poll">
-                                            <tr>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar color1" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-                                                            Call of Duty Ghosts
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="chbox">
-                                                    <input id="opt1" type="radio" name="opt" value="1" />  
-                                                    <label for="opt1"></label>  
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar color2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 63%">
-                                                            Titanfall
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="chbox">
-                                                    <input id="opt2" type="radio" name="opt" value="2" checked="checked" />  
-                                                    <label for="opt2"></label>  
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar color3" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                                                            Battlefield 4
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="chbox">
-                                                    <input id="opt3" type="radio" name="opt" value="3" />  
-                                                    <label for="opt3"></label>  
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </form>
-                                    <p class="smal">Voting ends on 19th of October</p>
-                                </div>
-                            </div>
-
-                            <!-- -->
-                            <div class="sidebarblock">
-                                <h3>My Active Threads</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="jumbotron">
+  <div class="container text-center">
+    <h3>Welcome Forum</h3>
+    <div class="col-md-14 col-sm-14 col-lg-14">
+        <form class="navbar-form" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="q">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
-            </section>
-            
-            <footer>
-                <span th:replace="commons :: common-footer-fragment"></span>
-            </footer>
-        </div>
-        
-        <!-- get js source from CommonHtml -->
-        <span th:replace="commons :: common-js"></span>
-        
-        <!-- END REVOLUTION SLIDER -->
-    </body>
+             </div>
+         </form>
+     </div>   
+    </div>
+</div>
+
+<!-- ==== Content Start ==== -->
+<div class="container">
+  <h2>Thread List</h2>
+  <button class="btn btn-primary"> Create Thread</button>
+  <div class=cleafix>&nbsp;</div>
+  <div class="table-responsive">          
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Creator</th>
+        <th style="width:50%">Thread Title</th>
+        <th>Thread Topic</th>
+        <th>Post on</th>
+        <th>Comment</th>
+        <th>Acton</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Anna</td>
+        <td>Pitt</td>
+        <td>35</td>
+        <td>New York</td>
+        <td>USA</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+<!-- ==== CONTENT END ==== -->
+
+<!-- ==== FOOTER START ==== -->
+<!-- <footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer> -->
+<!-- ==== FOOTER END ==== -->
+</body>
 </html>
