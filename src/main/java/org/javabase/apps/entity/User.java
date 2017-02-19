@@ -1,11 +1,15 @@
 package org.javabase.apps.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,23 +23,26 @@ import javax.persistence.TemporalType;
 @Table(name = "user")
 public class User implements java.io.Serializable {
 
-    private static final long serialVersionUID = -3924336603223211546L;
-    private Integer userId;
-    private String userEmail;
-    private Date expireDate;
-    private String firstName;
-    private Boolean accountActive;
-    private Boolean nonExpired;
-    private Boolean nonLocked;
-    private String lastName;
-    private String password;
-    private String userPhone;
-    private Date registrationDate;
-    private String username;
-    private String userImage;
+    private static final long serialVersionUID = -1352472763010869081L;
+
+    private Integer     userId;
+    private Boolean     accountActive;
+    private Date        expireDate;
+    private String      firstName;
+    private String      lastName;
+    private Boolean     nonExpired;
+    private Boolean     nonLocked;
+    private String      password;
+    private Date        registrationDate;
+    private String      userEmail;
+    private String      userImage;
+    private String      userPhone;
+    private String      username;
+    private Set<Thread> threads = new HashSet<Thread>(0);
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+
     @Column(name = "user_id", unique = true, nullable = false)
     public Integer getUserId() {
         return this.userId;
@@ -45,13 +52,13 @@ public class User implements java.io.Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "user_email", length = 45)
-    public String getUserEmail() {
-        return this.userEmail;
+    @Column(name = "account_active")
+    public Boolean getAccountActive() {
+        return this.accountActive;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setAccountActive(Boolean accountActive) {
+        this.accountActive = accountActive;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -73,13 +80,13 @@ public class User implements java.io.Serializable {
         this.firstName = firstName;
     }
 
-    @Column(name = "account_active")
-    public Boolean getAccountActive() {
-        return this.accountActive;
+    @Column(name = "last_name", length = 45)
+    public String getLastName() {
+        return this.lastName;
     }
 
-    public void setAccountActive(Boolean accountActive) {
-        this.accountActive = accountActive;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Column(name = "non_expired")
@@ -100,15 +107,6 @@ public class User implements java.io.Serializable {
         this.nonLocked = nonLocked;
     }
 
-    @Column(name = "last_name", length = 45)
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     @Column(name = "password", nullable = false, length = 200)
     public String getPassword() {
         return this.password;
@@ -116,15 +114,6 @@ public class User implements java.io.Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Column(name = "user_phone", length = 45)
-    public String getUserPhone() {
-        return this.userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -137,13 +126,13 @@ public class User implements java.io.Serializable {
         this.registrationDate = registrationDate;
     }
 
-    @Column(name = "username", nullable = false, length = 30)
-    public String getUsername() {
-        return this.username;
+    @Column(name = "user_email", length = 45)
+    public String getUserEmail() {
+        return this.userEmail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     @Column(name = "user_image", length = 45)
@@ -155,5 +144,31 @@ public class User implements java.io.Serializable {
         this.userImage = userImage;
     }
 
-}
+    @Column(name = "user_phone", length = 45)
+    public String getUserPhone() {
+        return this.userPhone;
+    }
 
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    @Column(name = "username", nullable = false, length = 30)
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Thread> getThreads() {
+        return this.threads;
+    }
+
+    public void setThreads(Set<Thread> threads) {
+        this.threads = threads;
+    }
+
+}

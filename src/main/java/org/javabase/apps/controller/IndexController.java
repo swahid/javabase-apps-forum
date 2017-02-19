@@ -2,7 +2,7 @@ package org.javabase.apps.controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.javabase.apps.service.ContentService;
+import org.javabase.apps.service.ThreadService;
 import org.javabase.apps.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class IndexController {
     UserService userservice;
     
     @Autowired
-    ContentService contentService;
+    ThreadService threadService;
     
     @Autowired
     HttpSession response;

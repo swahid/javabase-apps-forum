@@ -11,63 +11,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author medisys
- *
+ * @author      Saurav Wahid<saurav1161@gmail.com>
+ * @version     1.0.0
+ * @since       1.0.0
  */
 @Repository
 @SuppressWarnings("unchecked")
 public class CommentMapperImpl implements CommentMapper{
-	
-	@Autowired
-	SessionFactory session;
+    
+    @Autowired
+    SessionFactory session;
 
-	@Override
-	public List<Comment> getAllComment() {
-		return session.getCurrentSession().createCriteria(Comment.class).list();
-	}
+    @Override
+    public List<Comment> getAllComment() {
+        return session.getCurrentSession().createCriteria(Comment.class).list();
+    }
 
-	@Override
-	public Comment getCommentbyId(int id) {
-		return (Comment) session.getCurrentSession().get(Comment.class, id);
-	}
+    @Override
+    public Comment getCommentbyId(int id) {
+        return (Comment) session.getCurrentSession().get(Comment.class, id);
+    }
 
-	@Override
-	public Boolean addComment(Comment content) {
-		try {
-			session.getCurrentSession().save(content);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    @Override
+    public Boolean addComment(Comment content) {
+        try {
+            session.getCurrentSession().save(content);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	@Override
-	public Boolean updateComment(Comment content) {
-		try {
-			session.getCurrentSession().update(content);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    @Override
+    public Boolean updateComment(Comment content) {
+        try {
+            session.getCurrentSession().update(content);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	@Override
-	public Boolean deleteComment(Comment content) {
-		try {
-			session.getCurrentSession().delete(content);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+    @Override
+    public Boolean deleteComment(Comment content) {
+        try {
+            session.getCurrentSession().delete(content);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	@Override
-	public List<Comment> getCommentbyContentId(int contentId) {
-		String hql = "from Comment where contentId="+contentId;
-		return session.getCurrentSession().createQuery(hql).list();
-	}
+    @Override
+    public List<Comment> getCommentbyContentId(int contentId) {
+        String hql = "from Comment where contentId="+contentId;
+        return session.getCurrentSession().createQuery(hql).list();
+    }
 
 }

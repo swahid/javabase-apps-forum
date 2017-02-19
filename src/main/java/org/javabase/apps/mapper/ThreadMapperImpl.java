@@ -6,7 +6,7 @@ package org.javabase.apps.mapper;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.javabase.apps.entity.Content;
+import org.javabase.apps.entity.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,20 +17,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @SuppressWarnings("unchecked")
-public class ContentMapperImpl implements ContentMapper{
+public class ThreadMapperImpl implements ThreadMapper{
     
     @Autowired
     SessionFactory session;
     
     @Override
-    public List<Content> getAllContent() {
-        return session.getCurrentSession().createCriteria(Content.class).list();
+    public List<Thread> getAllThread() {
+        return session.getCurrentSession().createCriteria(Thread.class).list();
     }
 
     @Override
-    public Boolean addContent(Content content) {
+    public Boolean addThread(Thread Thread) {
         try {
-            session.getCurrentSession().save(content);
+            session.getCurrentSession().save(Thread);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,9 +40,9 @@ public class ContentMapperImpl implements ContentMapper{
     }
 
     @Override
-    public Boolean updateContent(Content content) {
+    public Boolean updateThread(Thread thread) {
         try {
-            session.getCurrentSession().update(content);
+            session.getCurrentSession().update(thread);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,9 +51,9 @@ public class ContentMapperImpl implements ContentMapper{
     }
 
     @Override
-    public Boolean deleteContent(Content content) {
+    public Boolean deleteThread(Thread Thread) {
         try {
-            session.getCurrentSession().delete(content);
+            session.getCurrentSession().delete(Thread);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +62,9 @@ public class ContentMapperImpl implements ContentMapper{
     }
 
 	@Override
-	public Content getContentbyId(int id) {
-		return (Content) session.getCurrentSession().get(Content.class, id);
+	public Thread getThreadbyId(int id) {
+		return (Thread) session.getCurrentSession().get(Thread.class, id);
 	}
+
 
 }

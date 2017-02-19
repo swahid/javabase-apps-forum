@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.javabase.apps.entity.Comment;
-import org.javabase.apps.entity.Content;
+import org.javabase.apps.entity.Thread;
 import org.javabase.apps.service.CommentService;
-import org.javabase.apps.service.ContentService;
+import org.javabase.apps.service.ThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since       1.0.0
  */
 @Controller
-@RequestMapping(value="content")
-public class ContentController {
+@RequestMapping(value="Thread")
+public class ThreadController {
     
     @Autowired
-    ContentService contentService;
+    ThreadService threadService;
     
     @Autowired
     CommentService commentService;
@@ -43,24 +43,24 @@ public class ContentController {
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
     	
-    	Content conetent =contentService.getContentbyId(contentId);
+    	Thread thread =threadService.getThreadbyId(contentId);
     	
-    	model.addAttribute("viewContent", conetent);
-    	model.addAttribute("comments", commentService.getCommentbyContentId(conetent.getContentId()));
+    	model.addAttribute("viewContent", thread);
+    	model.addAttribute("comments", commentService.getCommentbyContentId(thread.getThreadId()));
         return "topic";
     }
     
     @ResponseBody
     @RequestMapping(value="new",method=RequestMethod.POST)
-    public Map<String, Object> newThread(@RequestBody Content content){
+    public Map<String, Object> newThread(@RequestBody Thread Thread){
         Map<String, Object> response = new HashMap<>();
         
         try {
-            content.setCreateDate(new Date());
-             boolean save = contentService.addContent(content);
+            Thread.setCreateDate(new Date());
+             boolean save = threadService.addThread(Thread);
             if (save) {
                 response.put("suceess", true);
-                response.put("message", "Content Post");
+                response.put("message", "Thread Post");
             }else {
                 response.put("error", true);
                 response.put("message", "unable to save");
