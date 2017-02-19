@@ -42,11 +42,11 @@ public class ThreadController {
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
-    	
-    	Thread thread =threadService.getThreadbyId(contentId);
-    	
-    	model.addAttribute("viewContent", thread);
-    	model.addAttribute("comments", commentService.getCommentbyContentId(thread.getThreadId()));
+        
+//        Thread thread =threadService.getThreadbyId(contentId);
+//        
+//        model.addAttribute("viewContent", thread);
+//        model.addAttribute("comments", commentService.getCommentbyContentId(thread.getThreadId()));
         return "view_thread";
     }
     
@@ -83,12 +83,12 @@ public class ThreadController {
         boolean save = commentService.addComment(comment);
         
         if (save) {
-        	response.put("suceess", true);
+            response.put("suceess", true);
             response.put("message", "Comment Published");
-		}else {
-			response.put("error", true);
-	        response.put("message", "Comment Unable to Published");
-		}
+        }else {
+            response.put("error", true);
+            response.put("message", "Comment Unable to Published");
+        }
         return response;
     }
 

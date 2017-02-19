@@ -7,7 +7,7 @@
   <!-- GET BOOTSTARP CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- CSS STYLE -->
-  <link rel="stylesheet" th:href="@{resources/css/style.css}">
+  <link rel="stylesheet" th:href="@{/resources/css/style.css}">
   <!-- GET jQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <!-- GET BOOTSTARP JS -->
@@ -28,53 +28,115 @@
 </nav>
 <!-- ==== Header END ==== -->
 
-<div class="jumbotron">
-  <div class="container text-center">
-    <h3>Welcome Forum</h3>
-    <div class="col-md-14 col-sm-14 col-lg-14">
-        <form class="navbar-form" role="search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="q">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
-             </div>
-         </form>
-     </div>   
-    </div>
-</div>
 
 <!-- ==== Content Start ==== -->
+
+<!-- Comments list Section -->
+<div class="clearfix">&nbsp;</div>
 <div class="container">
-  <h2>Thread List</h2>
-  <button class="btn btn-primary"> Create Thread</button>
-  <div class=cleafix>&nbsp;</div>
-  <div class="table-responsive">          
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Creator</th>
-        <th style="width:50%">Thread Title</th>
-        <th>Thread Topic</th>
-        <th>Post on</th>
-        <th>Comment</th>
-        <th>Acton</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Anna</td>
-        <td>Pitt</td>
-        <td>35</td>
-        <td>New York</td>
-        <td>USA</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b>Ryan Haywood</b></a>
+                            made a post.
+                        </div>
+                        <h6 class="text-muted time">1 minute ago</h6>
+                    </div>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="post-description"> 
+                    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="stats pull-right">
+                        <a href="#" class="btn btn-default stat-item">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a href="#" class="btn btn-default stat-item">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">&nbsp;</div>
 </div>
+<!-- END Comments list Section -->
+
+
+
+
+<!-- END Comment List  -->
+<div class="clearfix">&nbsp;</div>
+<div class="container col-sm-12">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>User Comments</h3>
+        </div><!-- /col-sm-12 -->
+    </div><!-- /row -->
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div>
+    <div class="clearfix">&nbsp;</div>
+</div>
+<!-- END Comment List  -->
+
+
+
+<!-- Comment Box  -->
+<div class="clearfix">&nbsp;</div>
+<div class="widget-area no-padding blank">
+    <h4>Enter Comments:</h4>
+    <div class="status-upload">
+        <form role=form>
+            <div class="from-group col-md-4">
+             <input placeholder="First Name" type="text" class="form-control" id="firstName"/>
+            </div>
+            <div class="from-group col-md-4">
+             <input placeholder="Last Name" type="text" class="form-control col-sm-6" id="lastName"/>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="from-group col-md-4">
+             <input placeholder="Enter Username" type="text" class="form-control" id="username"/>
+            </div>
+            <div class="from-group col-md-4">
+             <input placeholder="Enter Password" type="password" class="form-control" id="password"/>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="from-group col-md-8">
+             <textarea placeholder="Enter Your Comments" class="form-control"></textarea>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="from-group pull-right">
+                <button type="submit" class="btn btn-info">Post Comment</button>
+            </div>
+        </form>
+    </div><!-- ./Status Upload  -->
+</div><!-- ./Widget Area -->
+<!-- END Comment Box  -->
+
 <!-- ==== CONTENT END ==== -->
 
 <!-- ==== FOOTER START ==== -->
