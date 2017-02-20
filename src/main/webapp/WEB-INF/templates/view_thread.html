@@ -5,16 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- GET BOOTSTARP CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   
   <!-- FONT AWESOME CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css' />
   
   <!-- Validation CSS -->
-  <link rel="stylesheet" th:href="@{/resources/js/plugin/validation/css/validationEngine.jquery.css}">
+  <link rel="stylesheet" th:href="@{/resources/js/plugin/validation/css/validationEngine.jquery.css}" />
   
   <!-- CSS STYLE -->
-  <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+  <link rel="stylesheet" th:href="@{/resources/css/style.css}" />
   
   <!-- GET jQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -29,7 +29,11 @@
   <script th:src="@{/resources/js/plugin/notification/notify.min.js}"></script>
   
   <!-- Validation JS -->
+  <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine-en.js}"></script>
   <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine.js}"></script>
+  
+  <!-- Commnets JS -->
+  <script th:src="@{/resources/js/forum/comments.js}"></script>
 </head>
 <body>
 
@@ -37,10 +41,10 @@
 <nav class="navbar navbar-inverse bg-primary ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" th:href="@{/threads}">Logo</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
 </nav>
@@ -114,7 +118,7 @@
     <div class="row" th:each="comments, rowStat  : ${commentList}">
         <div class="col-sm-1">
             <div class="thumbnail">
-                <img class="img-responsive user-photo" th:src="@{|/resources/images/${comments.thread.user.userImage}|}" alt="No Image">
+                <img class="img-responsive user-photo" th:src="@{|/resources/images/${comments.thread.user.userImage}|}" alt="No Avater">
             </div><!-- /thumbnail -->
         </div><!-- /col-sm-1 -->
 
@@ -135,7 +139,6 @@
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
     <div class="clearfix">&nbsp;</div>
-    <hr/>
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>
@@ -157,14 +160,20 @@
             </div>
             <div class="clearfix">&nbsp;</div>
             <div class="from-group col-md-4">
-             <input placeholder="Enter Username" type="text" class="form-control" id="username"/>
+             <input placeholder="Enter Username" type="text" class="form-control validate[required]" id="username"/>
             </div>
             <div class="from-group col-md-4">
-             <input placeholder="Enter Password" type="password" class="form-control" id="password"/>
+             <input placeholder="Enter Password" type="password" class="form-control validate[required]" id="password"/>
             </div>
             <div class="from-group col-md-8">
             <div class="clearfix">&nbsp;</div>
-             <textarea placeholder="Enter Your Comments" class="form-control"></textarea>
+             <textarea placeholder="Enter Your Comments" class="form-control validate[required]" id="commentDescription"></textarea>
+            </div>
+            <div class="row">
+                <input type="hidden" id="threadId"  th:value="${viewThread.threadId}"/>
+                <input type="hidden" id="commentTitle"  th:value="${viewThread.threadTitle}"/>
+                <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
+                <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
             </div>
             <div class="from-group col-sm-8">
                 <div class="clearfix">&nbsp;</div>

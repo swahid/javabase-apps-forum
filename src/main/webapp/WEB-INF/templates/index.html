@@ -29,16 +29,17 @@
   <script th:src="@{/resources/js/plugin/notification/notify.min.js}"></script>
   
   <!-- Validation JS -->
+  <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine-en.js}"></script>
   <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine.js}"></script>
   
 </head>
 <body>
 
 <!-- ==== Header Start ==== -->
-<nav class="navbar navbar-inverse navbar-primary ">
+<nav class="navbar navbar-inverse bg-primary ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" th:href="@{/threads}">Logo</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
         <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

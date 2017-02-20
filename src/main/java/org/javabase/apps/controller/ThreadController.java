@@ -115,22 +115,4 @@ public class ThreadController {
         return response;
     }
     
-    @ResponseBody
-    @RequestMapping(value="view/comment/new",method=RequestMethod.POST)
-    public Map<String, Object> addComment(@RequestBody Comment comment){
-        Map<String, Object> response = new HashMap<>();
-        
-        comment.setCreateDate(new Date());
-        boolean save = commentService.addComment(comment);
-        
-        if (save) {
-            response.put("suceess", true);
-            response.put("message", "Comment Published");
-        }else {
-            response.put("error", true);
-            response.put("message", "Comment Unable to Published");
-        }
-        return response;
-    }
-
 }

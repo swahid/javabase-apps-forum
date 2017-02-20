@@ -31,11 +31,11 @@ public class IndexController {
     @Autowired
     HttpSession response;
     
-    @RequestMapping(value = { "/", "/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "/home","/threads"}, method = RequestMethod.GET)
     public String home(Model model) {
         
         model.addAttribute("allThreadList", threadService.getAllThread());
-        log.info("Welcome home! ");
+        log.debug("Welcome home! ");
         return "index";
     }
     
