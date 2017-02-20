@@ -12,15 +12,14 @@ $(document).ready(function($) {
             return;
         }
         var data    = {},
-        	topic   = {},
-        	user    = {},
-            url = "new";
+            url = "create";
             data["threadTitle"]   		= $("#threadTitle").val();
             data["threadDescription"]   = $("#threadDescription").val();
             data["createUser"]    		= $("#loginUserName").val();
             data["createDate"]    		= new Date();
-            topic["topicName"]   		= $("#topic option:selected").text().trim();
-            user["userId"]				= $("#loginUserId").val();
+            data["topicId"]   		    = $("#topic option:selected").val().trim();
+            data["topicName"]   		= $("#topic option:selected").text().trim();
+            data["userId"]				= $("#loginUserId").val();
         
         var token 	= $('#csrfToken').val();
         var header	= $('#csrfHeader').val();

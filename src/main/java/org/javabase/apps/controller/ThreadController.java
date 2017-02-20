@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.javabase.apps.entity.Comment;
-import org.javabase.apps.entity.Thread;
 import org.javabase.apps.service.CommentService;
 import org.javabase.apps.service.ThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class ThreadController {
     @Autowired
     CommentService commentService;
     
-    @RequestMapping(value="create",method=RequestMethod.GET)
+    @RequestMapping(value="new",method=RequestMethod.GET)
     public String thread(){
         return "create_thread";
     }
@@ -55,11 +54,12 @@ public class ThreadController {
     }
     
     @ResponseBody
-    @RequestMapping(value="new",method=RequestMethod.POST)
-    public Map<String, Object> newThread(@RequestBody Thread Thread){
+    @RequestMapping(value="create",method=RequestMethod.POST)
+    public Map<String, Object> newThread(@RequestBody Map<String, Object> entity){
         Map<String, Object> response = new HashMap<>();
         
-        try {
+        
+        /*try {
             Thread.setCreateDate(new Date());
              boolean save = threadService.addThread(Thread);
             if (save) {
@@ -74,8 +74,9 @@ public class ThreadController {
             response.put("suceess", false);
             response.put("message", "unable to save");
             e.printStackTrace();
-        }
-        
+        }*/
+        response.put("suceess", true);
+        response.put("message", "Thread Post");
         return response;
     }
     
