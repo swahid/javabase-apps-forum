@@ -50,8 +50,8 @@
 </nav>
 <!-- ==== Header END ==== -->
 
-<!-- ==== CONTENT START ==== -->
-<div class="col-md-offset-3 col-md-6 col-md-offset-3 panle-primary">
+<!-- ==== CONTENT CREATOR START ==== -->
+<div class="col-md-offset-3 col-md-6 col-md-offset-3 panle-primary" th:if="${editThread ==null}">
     <div class="panle panle-primary">
         <div class="panle-header">
             <h3 class="panle-title"> Create Thread</h3>
@@ -93,7 +93,50 @@
         </form>
     </div><!-- /.panle -->
 </div>
-<!-- ==== CONTENT END ==== -->
+<!-- ==== CONTENT CREATOR END ==== -->
+
+
+
+<!-- ==== CONTENT EDITOR START ==== -->
+<div class="col-md-offset-3 col-md-6 col-md-offset-3 panle-primary" th:if="${editThread !=null}">
+    <div class="panle panle-primary">
+        <div class="panle-header">
+            <h3 class="panle-title"> Edit Thread</h3>
+        </div>
+        <!-- panle-header -->
+        
+        <!-- form start -->
+        <form role="form" action="#" id="threadEditForm" method="post" th:object="${editThread}">
+            <div class="panle-body">
+                <div class="form-group">
+                    <label for="threadTitle">Title</label>
+                    <input type="text" class="form-control validate[required]" id="threadTitleEdit" placeholder="Title" th:value="${editThread.threadTitle}">
+                </div>
+                <div class="form-group">
+                    <label for="topicTitle">Topic</label>
+                    <input type="hidden" class="form-control" id="topicIdEdit" th:value="${editThread.topic.topicId}">
+                    <input type="text" class="form-control validate[required]" id="topicNameEdit" th:value="${editThread.topic.topicName}">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="threadDescription">Description</label>
+                    <textarea class="form-control validate[required]" id="threadDescriptionEdit" placeholder="Enter Description" th:text="${editThread.threadDescription}"></textarea>
+                </div>
+                <div class="row">
+                    <input type="hidden" id="threadIdEdit"    th:value="${editThread.threadId}"/>
+                    <input type="hidden" id="loginUserId"    value="1"/>
+                    <input type="hidden" id="loginUserName"  value="admin"/>
+                    <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
+                    <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
+                </div>
+            </div><!-- /.panle-body -->
+            <div class="panle-footer">
+                <button type="submit" class="btn btn-warning pull-right">Edit</button>
+            </div>
+        </form>
+    </div><!-- /.panle -->
+</div>
+<!-- ==== NEW CONTENT END ==== -->
 
 <!-- ==== FOOTER START ==== -->
 <!-- <footer class="container-fluid text-center">

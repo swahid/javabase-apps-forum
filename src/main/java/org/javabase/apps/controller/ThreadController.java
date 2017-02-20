@@ -47,11 +47,6 @@ public class ThreadController {
     public String thread(){
         return "create_thread";
     }
-    @RequestMapping(value="all_thread",method=RequestMethod.GET)
-    public String threadList(){
-        
-        return "redirect:/";
-    }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
@@ -106,15 +101,70 @@ public class ThreadController {
                 response.put("message", "Thread Create");
                 response.put("path", "all_thread");
             }else {
+                response.put("error", true);
                 response.put("message", "Thread Create");
             }
         } catch (Exception e) {
+            response.put("error", true);
             response.put("message", "unable to save");
             e.printStackTrace();
         }
         return response;
     }
+    @ResponseBody
+    @RequestMapping(value="edit/update",method=RequestMethod.PUT)
+    public Map<String, Object> editThread(@RequestBody Map<String, String> entity){
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            User user        = new User();
+            Topic topic      = new Topic();
+            Thread thread    = new Thread();
+            
+            String threadId       = entity.get("threadId");
+            String userId         = entity.get("userId");
+            String updateUser     = entity.get("updateUser");
+            String threadTitle    = entity.get("threadTitle");
+            String topicId        = entity.get("topicId");
+            String threadDescription = entity.get("threadDescription");
+            
+            user.setUserId(Integer.valueOf(userId));
+            topic.setTopicId(Integer.valueOf(topicId));
+            
+            thread.setThreadId(Integer.valueOf(threadId));
+            thread.setUser(user);
+            thread.setTopic(topic);
+            thread.setThreadTitle(threadTitle);
+            thread.setUpdateUser(updateUser);
+            thread.setUpdateDate(new Date());
+            thread.setThreadDescription(threadDescription);
+            
+            boolean save = threadService.updateThread(thread);
+            if (save) {
+                response.put("success", true);
+                response.put("message", "Thread Update");
+                response.put("path", "all_thread");
+            }else {
+                response.put("error", true);
+                response.put("message", "unable to update");
+            }
+        } catch (Exception e) {
+            response.put("error", true);
+            response.put("message", "unable to update");
+            e.printStackTrace();
+        }
+        return response;
+    }
     
+    @RequestMapping(value="/edit/{threadId}_thread")
+    public String editThread(@PathVariable int threadId, Model model){
+        
+        Thread thread = threadService.getThreadbyId(threadId);
+        
+        model.addAttribute("editThread",thread);
+        
+        return "create_thread";
+    }
     @RequestMapping(value="/delete/{threadId}_thread")
     public String deleteThread(@PathVariable int threadId){
         
@@ -124,5 +174,15 @@ public class ThreadController {
         }
         return "redirect:/threads";
     }
+
+    @RequestMapping(value="create/all_thread",method=RequestMethod.GET)
+    public String threadCreateRedirect(){
+        return "redirect:/threads";
+    }
     
+    @RequestMapping(value="edit/all_thread",method=RequestMethod.GET)
+    public String threadEditRedirect(){
+        
+        return "redirect:/threads";
+    }
 }

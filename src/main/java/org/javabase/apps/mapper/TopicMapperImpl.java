@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.javabase.apps.entity.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 /**
  * @author      Saurav Wahid<saurav1161@gmail.com>
