@@ -144,7 +144,7 @@
 
 <!-- Comment Box  -->
 <div class="clearfix">&nbsp;</div>
-<div class="widget-area">
+<div class="widget-area" th:if="${editCommnet == null}">
     <h4 class="col-md-12">Enter Comments:</h4>
     <div class="status-upload">
         <form role=form action="#" method="post" id="commentEntryForm">
@@ -181,6 +181,36 @@
     <div class="clearfix">&nbsp;</div>
 </div><!-- ./Widget Area -->
 <!-- END Comment Box  -->
+
+<!-- Edit Comment Box -->
+<div class="widget-area" th:if="${editCommnet != null}">
+    <h4 class="col-md-12">Edit Comments</h4>
+    <div class="status-upload">
+        <form role=form action="#" method="post" id="commentEditForm" th:object="${editCommnet}">
+            <div class="from-group">
+             <input type="hidden" class="form-control validate[required]" id="updateUser" th:value="${editCommnet.createUser}"/>
+            </div>
+            <div class="from-group col-md-8">
+            <div class="clearfix">&nbsp;</div>
+             <textarea class="form-control validate[required]" id="commentDescriptionEdit" th:text="${editCommnet.commentDescription}"></textarea>
+            </div>
+            <div class="row">
+                <input type="hidden" id="commentId"  th:value="${editCommnet.commentId}"/>
+                <input type="hidden" id="threadIdEdit"  th:value="${editCommnet.thread.threadId}"/>
+                <input type="hidden" id="commentTitleEdit"  th:value="${editCommnet.commentTitle}"/>
+                <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
+                <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
+            </div>
+            <div class="from-group col-sm-8">
+                <div class="clearfix">&nbsp;</div>
+                <button type="submit" class="btn btn-primary pull-right">Edit Comment</button>
+            </div>
+        </form>
+        <div class="clearfix">&nbsp;</div>
+    </div><!-- ./Status Upload  -->
+    <div class="clearfix">&nbsp;</div>
+</div><!-- ./Widget Area -->
+<!-- Edit Comment END -->
 
 <!-- ==== CONTENT END ==== -->
 </div>
