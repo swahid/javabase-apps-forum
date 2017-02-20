@@ -7,7 +7,7 @@
   <!-- GET BOOTSTARP CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- CSS STYLE -->
-  <link rel="stylesheet" th:href="@{resources/css/style.css}">
+  <link rel="stylesheet" th:href="@{/resources/css/style.css}">
   <!-- GET jQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <!-- GET BOOTSTARP JS -->
@@ -62,16 +62,16 @@
                 </div>
                 <div class="form-group">
                     <label for="threadDescription">Description</label>
-                    <input type="text" class="form-control" id="threadDescription" placeholder="Enter Description">
+                    <textarea class="form-control" id="threadDescription" placeholder="Enter Description"></textarea>
                 </div>
                 <div class="row">
-                    <input type="hidden" id="createUser"  th:value="${user.username}"/>
+                    <!-- <input type="hidden" id="createUser"  th:value="${user.username}"/> -->
                     <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
                     <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
                 </div>
             </div><!-- /.panle-body -->
             <div class="panle-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right">Create</button>
             </div>
         </form>
     </div><!-- /.panle -->
