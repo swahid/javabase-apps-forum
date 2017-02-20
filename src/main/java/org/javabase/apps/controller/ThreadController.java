@@ -3,8 +3,10 @@
  */
 package org.javabase.apps.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.javabase.apps.entity.Comment;
@@ -54,10 +56,16 @@ public class ThreadController {
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
         
-//        Thread thread =threadService.getThreadbyId(contentId);
-//        
-//        model.addAttribute("viewContent", thread);
-//        model.addAttribute("comments", commentService.getCommentbyContentId(thread.getThreadId()));
+        Thread thread = threadService.getThreadbyId(contentId);
+        
+        model.addAttribute("viewThread", thread);
+        
+        List<Comment> commentList = new ArrayList<>();
+        if (thread !=null) {
+            commentList.addAll(thread.getComments());
+        }
+        
+        model.addAttribute("commentList", commentList);
         return "view_thread";
     }
     

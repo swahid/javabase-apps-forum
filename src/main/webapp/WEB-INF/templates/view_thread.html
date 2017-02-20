@@ -47,39 +47,53 @@
 <!-- ==== Header END ==== -->
 
 
+<!-- Check Query Object isNull -->
+<div th:if="${viewThread == null}">
+    <h4>No Post Found On your Query
+    <span><a th:href=@{/home}>Thread List Here</a> </span>
+    </h4>
+</div>
+
 <!-- ==== Content Start ==== -->
 <!-- Published Post Section -->
 <div class="clearfix">&nbsp;</div>
-<div class="clearfix">&nbsp;</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <h4>User Comments</h4>
-        </div><!-- /col-sm-12 -->
-    </div><!-- /row -->
-    <div class="row">
-        <div class="col-sm-1">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-            </div><!-- /thumbnail -->
-        </div><!-- /col-sm-1 -->
 
-        <div class="col-sm-7">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-                    <a href="#" class="btn btn-default btn-danger pull-right">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </a>
-                    <a href="#" class="btn btn-default btn-primary pull-right">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
+<!-- Check Query Object isNull-->
+<div th:if="${viewThread !=null}">
+<div class="container">
+    <div class="row" th:object=${viewThread}>
+        <div class="col-md-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img th:src="@{|/resources/images/${viewThread.createUser}_image|}" class="img-circle avatar" alt="No Image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h4">
+                            <a th:href="@{|/view/${viewThread.threadId}|}" th:text="${viewThread.threadTitle}">Thread Title</a>
+                        </div>
+                        <div class="title h5">
+                            <b th:text="${viewThread.createUser}">Ryan Haywood</b> made a post.
+                        </div>
+                        <h6 class="text-muted time" th:text="${viewThread.createDate}">1 minute ago</h6>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    Panel content
-                </div><!-- /panel-body -->
-            </div><!-- /panel panel-default -->
-        </div><!-- /col-sm-5 -->
+                <div class="clearfix">&nbsp;</div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="post-description"> 
+                    <p th:text="${viewThread.threadDescription}">Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="stats pull-right">
+                        <a href="#" class="btn btn-default btn-primary stat-item">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a href="#" class="btn btn-default btn-danger stat-item">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>
@@ -90,23 +104,24 @@
 
 <!-- Comment List  -->
 <div class="clearfix">&nbsp;</div>
-<div class="container">
-    <div class="row">
+<div th:if="${commentList.empty}" class="col-md-8"><h3>No Comments</h3></div>
+<div class="container" th:if="${!commentList.empty}">
+    <div class="row" >
         <div class="col-md-8">
             <h4>User Comments</h4>
         </div><!-- /col-sm-12 -->
     </div><!-- /row -->
-    <div class="row">
+    <div class="row" th:each="comments, rowStat  : ${commentList}">
         <div class="col-sm-1">
             <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                <img class="img-responsive user-photo" th:src="@{|/resources/images/${comments.thread.user.userImage}|}" alt="No Image">
             </div><!-- /thumbnail -->
         </div><!-- /col-sm-1 -->
 
         <div class="col-sm-7">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
+                    <strong th:text="${comments.createUser}">myusername</strong> commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
                     <a href="#" class="btn btn-default btn-danger pull-right">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
@@ -114,11 +129,13 @@
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" th:text="${comments.commentDescription}">
                     Panel content
                 </div><!-- /panel-body -->
             </div><!-- /panel panel-default -->
         </div><!-- /col-sm-5 -->
+    <div class="clearfix">&nbsp;</div>
+    <hr/>
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>
@@ -131,7 +148,7 @@
 <div class="widget-area">
     <h4 class="col-md-12">Enter Comments:</h4>
     <div class="status-upload">
-        <form role=form>
+        <form role=form action="#" method="post" id="commentEntryForm">
             <div class="from-group col-sm-4">
              <input placeholder="First Name" type="text" class="form-control" id="firstName"/>
             </div>
@@ -161,6 +178,7 @@
 <!-- END Comment Box  -->
 
 <!-- ==== CONTENT END ==== -->
+</div>
 
 <!-- ==== FOOTER START ==== -->
 <!-- <footer class="container-fluid text-center">
