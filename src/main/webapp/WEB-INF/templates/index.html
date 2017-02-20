@@ -77,24 +77,27 @@
       <tr>
         <th>#</th>
         <th style="width:10%">Creator</th>
-        <th style="width:40%">Thread Title</th>
-        <th>Thread Topic</th>
-        <th>Create Date</th>
+        <th style="width:30%">Title</th>
+        <th>Topic</th>
+        <th>Posted on</th>
         <th>Comment</th>
         <th align="center">Action <em class="glyphicon glyphicon-cog"></em></th>
       </tr>
     </thead>
     <tbody>
+      <tr th:if="${allThreadList.empty}">
+       <td colspan="6" align="center"> No Thread Found</td>
+      </tr>
       <tr th:each="allThread, rowStat  : ${allThreadList}">
         <td th:text="${rowStat.count}">1</td>
         <td th:text="${allThread.user.username}">Anna</td>
         <td> <a th:href=@{|/thread/view/${allThread.threadId}|} th:text="${allThread.threadTitle}"></a></td>
         <td th:text="${allThread.topic.topicName}">35</td>
         <td th:text="${allThread.createDate}">New York</td>
-        <td><a class="btn btn-default" >12<em class="glyphicon glyphicon-comment"></em></a></td>
+        <td><a class="btn btn-default" ><em class="glyphicon glyphicon-comment"></em></a></td>
         <td align="center">
-          <a class="btn btn-default" th:href=@{|/thread/view/${allThread.threadId}/edit|}><em class="fa fa-pencil"></em></a>
-          <a class="btn btn-danger" th:href=@{|/thread/view/${allThread.threadId}/delete|}><em class="fa fa-trash"></em></a>
+          <a class="btn btn-default" th:href=@{|/thread/edit/thread#${allThread.threadId}|}><em class="fa fa-pencil"></em></a>
+          <a class="btn btn-danger" th:href=@{|/thread/delete/thread#${allThread.threadId}|}><em class="fa fa-trash"></em></a>
         </td>
       </tr>
     </tbody>
