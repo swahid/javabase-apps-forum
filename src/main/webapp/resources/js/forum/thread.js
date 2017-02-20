@@ -1,25 +1,29 @@
 /*
- * REGISTRATION  JS FUNCTION
+ * Thread JS FUNCTION
  */
 $(document).ready(function($) {
-    $("#registerForm").submit(function(event) {
+	
+    $("#threadCreateForm").submit(function(event) {
         event.preventDefault();
         
         // Form validation use jquery validation plugin
-        javascript: $("#registerForm").validationEngine('attach');
-        if (!$("#registerForm").validationEngine('validate')) {
+        javascript: $("#threadCreateForm").validationEngine('attach');
+        if (!$("#threadCreateForm").validationEngine('validate')) {
             return;
         }
         var data    = {},
-            url = "registration";
-            data["firstName"]   = $("#firstName").val();
-            data["lastName"]    = $("#lastName").val();
-            data["userEmail"]   = $("#email").val();
-            data["username"]    = $("#username").val();
-            data["password"]    = $("#password").val();
+        	topic   = {},
+        	user    = {},
+            url = "new";
+            data["threadTitle"]   		= $("#threadTitle").val();
+            data["threadDescription"]   = $("#threadDescription").val();
+            data["createUser"]    		= $("#loginUserName").val();
+            data["createDate"]    		= new Date();
+            topic["topicName"]   		= $("#topic option:selected").text().trim();
+            user["userId"]				= $("#loginUserId").val();
         
         var token 	= $('#csrfToken').val();
-        var header 	= $('#csrfHeader').val();
+        var header	= $('#csrfHeader').val();
         
         /*
          * if in spring aplication csrf enable
@@ -37,8 +41,9 @@ $(document).ready(function($) {
             },
             success  : function(resonse) {
                 var message = resonse.message;
+//                location.href = resonse.url;
+                document.getElementById("threadCreateForm").reset()
                 $.notify(message, "success");
-                document.getElementById("registerForm").reset()
             },
             error      : function(e) {
                 console.log("ERROR: ",e);

@@ -39,6 +39,10 @@ public class ThreadController {
     public String thread(){
         return "create_thread";
     }
+    @RequestMapping(value="home",method=RequestMethod.GET)
+    public String threadList(){
+    	return "redirect:/home";
+    }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
@@ -61,6 +65,7 @@ public class ThreadController {
             if (save) {
                 response.put("suceess", true);
                 response.put("message", "Thread Post");
+                response.put("path", "home");
             }else {
                 response.put("error", true);
                 response.put("message", "unable to save");

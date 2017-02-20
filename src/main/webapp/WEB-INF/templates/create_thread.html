@@ -6,12 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- GET BOOTSTARP CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <!-- FONT AWESOME CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+  
+  <!-- Validation CSS -->
+  <link rel="stylesheet" th:href="@{/resources/js/plugin/validation/css/validationEngine.jquery.css}">
+  
   <!-- CSS STYLE -->
   <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+  
   <!-- GET jQUERY -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
   <!-- GET BOOTSTARP JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- Moment JS -->
+  <script th:src="@{/resources/js/plugin/moment/moment.min.js}"></script>
+  
+    <!-- Notification JS -->
+  <script th:src="@{/resources/js/plugin/notification/notify.min.js}"></script>
+  
+  <!-- Validation JS -->
+  <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine-en.js}"></script>
+  <script th:src="@{/resources/js/plugin/validation/js/jquery.validationEngine.js}"></script>
+  
+  <!-- Custom JS -->
+  <script th:src="@{/resources/js/forum/thread.js}"></script>
 </head>
 <body>
 
@@ -33,25 +55,19 @@
     <div class="panle panle-primary">
         <div class="panle-header">
             <h3 class="panle-title"> Create Thread</h3>
-            <!-- <div class="alert alert-success hidden" id="success">
-                <strong>Success!</strong> Account Created Login
-            </div>
-            <div class="alert alert-danger hidden" id="error">
-                <strong>ERROR!</strong> Unable to Create Try Again
-            </div> -->
         </div>
         <!-- panle-header -->
         
         <!-- form start -->
-        <form role="form" action="#" id="newThreadForm" method="post">
+        <form role="form" action="#" id="threadCreateForm" method="post">
             <div class="panle-body">
                 <div class="form-group">
                     <label for="threadTitle">Title</label>
-                    <input type="text" class="form-control" id="threadTitle" placeholder="Title">
+                    <input type="text" class="form-control validate[required]" id="threadTitle" placeholder="Title">
                 </div>
                 <div class="form-group">
                     <label for="topicTitle">Select Topic</label>
-                    <select class="form-control" id="topicTitle" >
+                    <select class="form-control validate[required]" id="topic" >
                       <option selected>Select Topic</option>
                       <option value="1">Java</option>
                       <option value="2">PHP</option>
@@ -62,10 +78,11 @@
                 </div>
                 <div class="form-group">
                     <label for="threadDescription">Description</label>
-                    <textarea class="form-control" id="threadDescription" placeholder="Enter Description"></textarea>
+                    <textarea class="form-control validate[required]" id="threadDescription" placeholder="Enter Description"></textarea>
                 </div>
                 <div class="row">
-                    <!-- <input type="hidden" id="createUser"  th:value="${user.username}"/> -->
+                    <input type="hidden" id="loginUserId"  value="1"/>
+                    <input type="hidden" id="loginUserName"  value="admin"/>
                     <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
                     <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
                 </div>
