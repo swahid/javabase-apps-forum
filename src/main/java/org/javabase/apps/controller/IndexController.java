@@ -34,7 +34,7 @@ public class IndexController {
     @RequestMapping(value = { "/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
         
-//        model.addAttribute("content", contentService.getAllContent());
+        model.addAttribute("allThreadList", threadService.getAllThread());
         log.info("Welcome home! ");
         return "index";
     }

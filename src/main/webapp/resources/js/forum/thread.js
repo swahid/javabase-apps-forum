@@ -2,7 +2,7 @@
  * Thread JS FUNCTION
  */
 $(document).ready(function($) {
-	
+    
     $("#threadCreateForm").submit(function(event) {
         event.preventDefault();
         
@@ -13,16 +13,15 @@ $(document).ready(function($) {
         }
         var data    = {},
             url = "create";
-            data["threadTitle"]   		= $("#threadTitle").val();
+            data["threadTitle"]         = $("#threadTitle").val();
             data["threadDescription"]   = $("#threadDescription").val();
-            data["createUser"]    		= $("#loginUserName").val();
-            data["createDate"]    		= new Date();
-            data["topicId"]   		    = $("#topic option:selected").val().trim();
-            data["topicName"]   		= $("#topic option:selected").text().trim();
-            data["userId"]				= $("#loginUserId").val();
+            data["createUser"]          = $("#loginUserName").val();
+            data["topicId"]             = $("#topic option:selected").val().trim();
+            data["topicName"]           = $("#topic option:selected").text().trim();
+            data["userId"]              = $("#loginUserId").val();
         
-        var token 	= $('#csrfToken').val();
-        var header	= $('#csrfHeader').val();
+        var token     = $('#csrfToken').val();
+        var header    = $('#csrfHeader').val();
         
         /*
          * if in spring aplication csrf enable
@@ -46,7 +45,7 @@ $(document).ready(function($) {
             },
             error      : function(e) {
                 console.log("ERROR: ",e);
-                $.notify("unable to create account", "error");
+                $.notify("unable to Create Thread ", "error");
             }
         });
         

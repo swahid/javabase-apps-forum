@@ -8,8 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.javabase.apps.entity.Comment;
+import org.javabase.apps.entity.Thread;
+import org.javabase.apps.entity.Topic;
+import org.javabase.apps.entity.User;
 import org.javabase.apps.service.CommentService;
 import org.javabase.apps.service.ThreadService;
+import org.javabase.apps.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,13 +38,17 @@ public class ThreadController {
     @Autowired
     CommentService commentService;
     
+    @Autowired
+    TopicService topicService;
+    
     @RequestMapping(value="new",method=RequestMethod.GET)
     public String thread(){
         return "create_thread";
     }
-    @RequestMapping(value="home",method=RequestMethod.GET)
+    @RequestMapping(value="all_thread",method=RequestMethod.GET)
     public String threadList(){
-    	return "redirect:/home";
+        
+        return "redirect:/";
     }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
@@ -55,28 +63,47 @@ public class ThreadController {
     
     @ResponseBody
     @RequestMapping(value="create",method=RequestMethod.POST)
-    public Map<String, Object> newThread(@RequestBody Map<String, Object> entity){
+    public Map<String, Object> newThread(@RequestBody Map<String, String> entity){
         Map<String, Object> response = new HashMap<>();
         
-        
-        /*try {
-            Thread.setCreateDate(new Date());
-             boolean save = threadService.addThread(Thread);
+        try {
+            User user        = new User();
+            Topic topic      = new Topic();
+            Thread thread    = new Thread();
+            
+            String userId         = entity.get("userId");
+            String createUser     = entity.get("createUser");
+            String threadTitle    = entity.get("threadTitle");
+            String topicName      = entity.get("topicName");
+            String threadDescription = entity.get("threadDescription");
+            
+            user.setUserId(Integer.valueOf(userId));
+            
+            topic.setTopicName(topicName);
+            topic.setCreateDate(new Date());
+            topic.setCreateUser(createUser);
+            topicService.addNewTopic(topic);
+            topic = topicService.getTopicByName(topicName);
+            
+            thread.setUser(user);
+            thread.setTopic(topic);
+            thread.setThreadTitle(threadTitle);
+            thread.setCreateUser(createUser);
+            thread.setCreateDate(new Date());
+            thread.setThreadDescription(threadDescription);
+            
+             boolean save = threadService.addThread(thread);
             if (save) {
-                response.put("suceess", true);
-                response.put("message", "Thread Post");
-                response.put("path", "home");
+                response.put("success", true);
+                response.put("message", "Thread Create");
+                response.put("path", "all_thread");
             }else {
-                response.put("error", true);
-                response.put("message", "unable to save");
+                response.put("message", "Thread Create");
             }
         } catch (Exception e) {
-            response.put("suceess", false);
             response.put("message", "unable to save");
             e.printStackTrace();
-        }*/
-        response.put("suceess", true);
-        response.put("message", "Thread Post");
+        }
         return response;
     }
     

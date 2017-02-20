@@ -85,16 +85,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Anna</td>
-        <td>Pitt</td>
-        <td>35</td>
-        <td>New York</td>
+      <tr th:each="allThread, rowStat  : ${allThreadList}">
+        <td th:text="${rowStat.count}">1</td>
+        <td th:text="${allThread.user.username}">Anna</td>
+        <td> <a th:href=@{|/thread/view/${allThread.threadId}|} th:text="${allThread.threadTitle}"></a></td>
+        <td th:text="${allThread.topic.topicName}">35</td>
+        <td th:text="${allThread.createDate}">New York</td>
         <td><a class="btn btn-default" >12<em class="glyphicon glyphicon-comment"></em></a></td>
         <td align="center">
-          <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-          <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+          <a class="btn btn-default" th:href=@{|/thread/view/${allThread.threadId}/edit|}><em class="fa fa-pencil"></em></a>
+          <a class="btn btn-danger" th:href=@{|/thread/view/${allThread.threadId}/delete|}><em class="fa fa-trash"></em></a>
         </td>
       </tr>
     </tbody>
