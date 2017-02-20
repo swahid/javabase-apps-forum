@@ -15,6 +15,7 @@ import org.javabase.apps.service.ThreadService;
 import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,6 +76,16 @@ public class CommentsController {
             response.put("message", "Unable to Published");
         }
         return response;
+    }
+    
+    @RequestMapping(value="/delete/{commentId}_comment")
+    public String deleteThread(@PathVariable int commentId){
+        
+        Comment comment = commentService.getCommentbyId(commentId);
+        if (comment !=null) {
+            commentService.deleteComment(comment);
+        }
+        return "redirect:/thread/view/"+comment.getThread().getThreadId();
     }
 
 }

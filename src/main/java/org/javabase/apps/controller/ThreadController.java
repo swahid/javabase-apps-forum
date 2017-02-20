@@ -115,4 +115,14 @@ public class ThreadController {
         return response;
     }
     
+    @RequestMapping(value="/delete/{threadId}_thread")
+    public String deleteThread(@PathVariable int threadId){
+        
+        Thread thread = threadService.getThreadbyId(threadId);
+        if (thread !=null) {
+            threadService.deleteThread(thread);
+        }
+        return "redirect:/threads";
+    }
+    
 }

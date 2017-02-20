@@ -88,12 +88,8 @@
                     <p th:text="${viewThread.threadDescription}">Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
                     <div class="clearfix">&nbsp;</div>
                     <div class="stats pull-right">
-                        <a href="#" class="btn btn-default btn-primary stat-item">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </a>
-                        <a href="#" class="btn btn-default btn-danger stat-item">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </a>
+                        <a class="btn btn-warning" th:href=@{|/thread/edit/${viewThread.threadId}_thread|}><em class="fa fa-pencil"></em></a>
+                        <a class="btn btn-danger" th:href=@{|/thread/delete/${viewThread.threadId}_thread|}><em class="fa fa-trash"></em></a>
                     </div>
                 </div>
             </div>
@@ -115,7 +111,7 @@
             <h4>User Comments</h4>
         </div><!-- /col-sm-12 -->
     </div><!-- /row -->
-    <div class="row" th:each="comments, rowStat  : ${commentList}">
+    <div class="row" th:each="comments, rowStat : ${commentList}">
         <div class="col-sm-1">
             <div class="thumbnail">
                 <img class="img-responsive user-photo" th:src="@{|/resources/images/${comments.thread.user.userImage}|}" alt="No Avater">
@@ -126,10 +122,10 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <strong th:text="${comments.createUser}">myusername</strong> commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
-                    <a href="#" class="btn btn-default btn-danger pull-right">
+                    <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}" class="btn btn-default btn-danger pull-right">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
-                    <a href="#" class="btn btn-default btn-primary pull-right">
+                    <a th:href="@{|/thread/view/comment/edit/${comments.commentId}_comment|}" class="btn btn-default btn-primary pull-right">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                 </div>
