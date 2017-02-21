@@ -53,13 +53,12 @@ public class ThreadController {
         
         Thread thread = threadService.getThreadbyId(contentId);
         
-        model.addAttribute("viewThread", thread);
-        
         List<Comment> commentList = new ArrayList<>();
         if (thread !=null) {
             commentList.addAll(thread.getComments());
         }
         
+        model.addAttribute("viewThread", thread);
         model.addAttribute("commentList", commentList);
         return "view_thread";
     }

@@ -52,4 +52,10 @@ public class ThreadServiceImpl implements ThreadService{
         return threadMapper.getThreadbyId(id);
     }
 
+    @Override
+    @Transactional(readOnly=true)
+    public List<Thread> searchThreadByParam(String searchBy, String searchParam) {
+        return threadMapper.searchThreadByParam(searchBy, searchParam);
+    }
+
 }

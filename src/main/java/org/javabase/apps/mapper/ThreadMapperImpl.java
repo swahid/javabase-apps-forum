@@ -5,6 +5,7 @@ package org.javabase.apps.mapper;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.javabase.apps.entity.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +61,21 @@ public class ThreadMapperImpl implements ThreadMapper{
             return false;
         }
     }
-
-	@Override
-	public Thread getThreadbyId(int id) {
-		return (Thread) session.getCurrentSession().get(Thread.class, id);
-	}
+    
+    @Override
+    public Thread getThreadbyId(int id) {
+        return (Thread) session.getCurrentSession().get(Thread.class, id);
+    }
+    
+    @Override
+    public List<Thread> searchThreadByParam(String searchBy, String searchParam) {
+        String hql = "FROM Thread t WHERE t."+searchBy+" Like :searchParam";
+        
+        Query query = session.getCurrentSession().createQuery(hql);
+        List<Thread> threadList =query.setParameter("searchParam", searchParam+ "%").list();
+        
+        return threadList;
+    }
 
 
 }

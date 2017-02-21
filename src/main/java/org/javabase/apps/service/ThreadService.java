@@ -15,6 +15,7 @@ import org.javabase.apps.entity.Thread;
 public interface ThreadService {
     
     public List<Thread> getAllThread();
+    public List<Thread> searchThreadByParam(String searchBy, String searchParam);
     public Thread getThreadbyId(int id);
     public Boolean addThread(Thread thread);
     public Boolean updateThread(Thread thread);
