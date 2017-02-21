@@ -21,6 +21,7 @@ $(document).ready(function($) {
             data["topicId"]             = $("#topic option:selected").val();
             data["topicName"]           = $("#topic option:selected").text();
             data["userId"]              = $("#loginUserId").val();
+            data["threadImage"]              = $("#threadImage").val();
             
             if ($("#topic option:selected").val() == null) {
                 data["topicName"]       = $("#addTopic").val();

@@ -5,6 +5,8 @@ $(document).ready(function($) {
     $("#registerForm").submit(function(event) {
         event.preventDefault();
         
+        var image = $("#userImage").val();
+        console.log(image);
         // Form validation use jquery validation plugin
         javascript: $("#registerForm").validationEngine('attach');
         if (!$("#registerForm").validationEngine('validate')) {
@@ -17,6 +19,7 @@ $(document).ready(function($) {
             data["userEmail"]   = $("#email").val();
             data["username"]    = $("#username").val();
             data["password"]    = $("#password").val();
+            data["userImage"]   = $("#userImage").val();
         
         var token 	= $('#csrfToken').val();
         var header 	= $('#csrfHeader').val();

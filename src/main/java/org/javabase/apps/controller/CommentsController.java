@@ -125,7 +125,7 @@ public class CommentsController {
     }
     
     @RequestMapping(value="/edit/{commentId}_comment")
-    public String editThread(@PathVariable int commentId, Model model){
+    public String editThread(@PathVariable int commentId, Model model, Principal principal){
         
         Comment comment = commentService.getCommentbyId(commentId);
         Thread thread = threadService.getThreadbyId(comment.getThread().getThreadId());
@@ -134,7 +134,9 @@ public class CommentsController {
         if (thread !=null) {
             commentList.addAll(thread.getComments());
         }
-        
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+        }
         model.addAttribute("editCommnet", comment);
         model.addAttribute("viewThread", thread);
         model.addAttribute("commentList", commentList);
@@ -142,11 +144,14 @@ public class CommentsController {
         return "view_thread";
     }
     @RequestMapping(value="/delete/{commentId}_comment")
-    public String deleteThread(@PathVariable int commentId){
+    public String deleteThread(@PathVariable int commentId,Model model, Principal principal){
         
         Comment comment = commentService.getCommentbyId(commentId);
         if (comment !=null) {
             commentService.deleteComment(comment);
+        }
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
         }
         return "redirect:/thread/view/"+comment.getThread().getThreadId();
     }

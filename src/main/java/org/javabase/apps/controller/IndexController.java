@@ -1,6 +1,6 @@
 package org.javabase.apps.controller;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 import org.javabase.apps.entity.Thread;
 import org.javabase.apps.service.ThreadService;
@@ -25,16 +25,17 @@ public class IndexController {
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
     
     @Autowired
-    UserService userservice;
+    UserService userService;
     
     @Autowired
     ThreadService threadService;
     
-    @Autowired
-    HttpSession response;
-    
     @RequestMapping(value = { "/", "/home","/threads"}, method = RequestMethod.GET)
-    public String home(Model model) {
+    public String home(Model model, Principal principal) {
+        
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+        }
         
         model.addAttribute("allThreadList", threadService.getAllThread());
         model.addAttribute("search", new Thread());

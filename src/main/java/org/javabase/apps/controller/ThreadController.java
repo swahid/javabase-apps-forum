@@ -21,6 +21,7 @@ import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,13 +49,19 @@ public class ThreadController {
     @Autowired
     TopicService topicService;
     
+    
     @RequestMapping(value="new",method=RequestMethod.GET)
-    public String thread(Model model, Principal principal){
+    public String thread(Model model,Principal principal){
         
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         List<Topic> topicList = topicService.getAllTopic();
         
+        if (principal != null) {
+            model.addAttribute("loginUser", user);
+        }
+        
+        model.addAttribute("allThreadList", threadService.getAllThread());
         model.addAttribute("loginUser", user);
         model.addAttribute("topicList", topicList);
         
@@ -62,13 +69,16 @@ public class ThreadController {
     }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
-    public String loadThread(@PathVariable int contentId, Model model){
+    public String loadThread(@PathVariable int contentId, Model model,Principal principal){
         
         Thread thread = threadService.getThreadbyId(contentId);
         
         List<Comment> commentList = new ArrayList<>();
         if (thread !=null) {
             commentList.addAll(thread.getComments());
+        }
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
         }
         
         model.addAttribute("viewThread", thread);
@@ -78,7 +88,7 @@ public class ThreadController {
     
     @ResponseBody
     @RequestMapping(value="create",method=RequestMethod.POST)
-    public Map<String, Object> newThread(@RequestBody Map<String, String> entity){
+    public Map<String, Object> newThread(@RequestBody Map<String, String> entity, Model model,Principal principal){
         Map<String, Object> response = new HashMap<>();
         
         try {
@@ -106,8 +116,14 @@ public class ThreadController {
             thread.setCreateUser(createUser);
             thread.setCreateDate(new Date());
             thread.setThreadDescription(threadDescription);
+            if (!StringUtils.isEmpty(entity.get("threadImage"))) {
+                thread.setThreadImage(entity.get("threadImage"));
+            }
             
              boolean save = threadService.addThread(thread);
+             if (principal != null) {
+                 model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+             }
             if (save) {
                 response.put("success", true);
                 response.put("message", "Thread Create");
@@ -125,7 +141,7 @@ public class ThreadController {
     }
     @ResponseBody
     @RequestMapping(value="edit/update",method=RequestMethod.PUT)
-    public Map<String, Object> editThread(@RequestBody Map<String, String> entity){
+    public Map<String, Object> editThread(@RequestBody Map<String, String> entity,Principal principal, Model model){
         Map<String, Object> response = new HashMap<>();
         
         try {
@@ -145,13 +161,14 @@ public class ThreadController {
             
             thread = threadService.getThreadbyId(Integer.valueOf(threadId));
             
-//            thread.setUser(user);
-//            thread.setTopic(topic);
             thread.setThreadTitle(threadTitle);
             thread.setUpdateUser(updateUser);
             thread.setUpdateDate(new Date());
             thread.setThreadDescription(threadDescription);
             
+            if (principal != null) {
+                model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+            }
             boolean save = threadService.updateThread(thread);
             if (save) {
                 response.put("success", true);
@@ -170,32 +187,46 @@ public class ThreadController {
     }
     
     @RequestMapping(value="/edit/{threadId}_thread")
-    public String editThread(@PathVariable int threadId, Model model){
+    public String editThread(@PathVariable int threadId, Model model,Principal principal){
         
         Thread thread = threadService.getThreadbyId(threadId);
+        
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+        }
         
         model.addAttribute("editThread",thread);
         
         return "create_thread";
     }
     @RequestMapping(value="/delete/{threadId}_thread")
-    public String deleteThread(@PathVariable int threadId){
+    public String deleteThread(@PathVariable int threadId,Principal principal, Model model){
         
         Thread thread = threadService.getThreadbyId(threadId);
         if (thread !=null) {
             threadService.deleteThread(thread);
         }
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+        }
         return "redirect:/threads";
     }
 
     @RequestMapping(value="all_thread",method=RequestMethod.GET)
-    public String threadCreateRedirect(){
+    public String threadCreateRedirect(Model model, Principal principal){
+        
+        if (principal != null) {
+            model.addAttribute("loginUser", userService.getUserByUsername(principal.getName()));
+        }
         return "redirect:/threads";
     }
     
     @RequestMapping(value="edit/all_thread",method=RequestMethod.GET)
-    public String threadEditRedirect(){
+    public String threadEditRedirect(Model model, Principal principal){
         
+        if (principal != null) {
+            model.addAttribute("loginUser", principal.getName());
+        }
         return "redirect:/threads";
     }
 }

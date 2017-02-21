@@ -39,7 +39,7 @@
 <body>
 
 <!-- ==== Header Start ==== -->
-<nav class="navbar navbar-inverse bg-primary ">
+<nav class="navbar navbar-inverse bg-primary" th:object="${loginUser}">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" th:href="@{/threads}">
@@ -50,7 +50,7 @@
         <li><a th:href="@{/login}" sec:authorize="isAnonymous()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
     <div class="pull-right dropdown" sec:authorize="isAuthenticated()">
-        <a data-toggle="dropdown" href="#"><img th:src="@{/resources/images/avatar.jpg}" alt="" /> <span sec:authentication="name">username</span><b class="caret"></b></a>
+        <a data-toggle="dropdown" href="#"><img th:src="@{|/resources/images/${loginUser.userImage}|}" alt="" /> <span sec:authentication="name">username</span><b class="caret"></b></a>
         <div class="status green">&nbsp;</div>
         <ul class="dropdown-menu" role="menu">
             <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
@@ -95,6 +95,10 @@
                     <label for="threadDescription">Description</label>
                     <textarea class="form-control validate[required]" id="threadDescription" placeholder="Enter Description"></textarea>
                 </div>
+                <div class="form-group">
+                            <label for="userImage">Upload image</label>
+                            <input type="file" id="threadImage">
+                        </div>
                 <div class="row">
                     <input type="hidden" id="loginUserId"  th:value="${loginUser.userId}"/>
                     <input type="hidden" id="loginUserName"  th:value="${loginUser.username}"/>
