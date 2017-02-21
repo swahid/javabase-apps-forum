@@ -44,8 +44,16 @@
       <a class="navbar-brand" th:href="@{/threads}">Logo</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-        <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a th:href="@{/login}" sec:authorize="isAnonymous()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
+    <div class="pull-right dropdown" sec:authorize="isAuthenticated()">
+        <a data-toggle="dropdown" href="#"><img th:src="@{/resources/images/avatar.jpg}" alt="" /> <span sec:authentication="name">username</span><b class="caret"></b></a>
+        <div class="status green">&nbsp;</div>
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
   </div>
 </nav>
 <!-- ==== Header END ==== -->
@@ -88,8 +96,8 @@
                     <p th:text="${viewThread.threadDescription}">Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
                     <div class="clearfix">&nbsp;</div>
                     <div class="stats pull-right">
-                        <a class="btn btn-warning" th:href=@{|/thread/edit/${viewThread.threadId}_thread|}><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger" th:href=@{|/thread/delete/${viewThread.threadId}_thread|}><em class="fa fa-trash"></em></a>
+                        <a class="btn btn-warning" th:href=@{|/thread/edit/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()"><em class="fa fa-pencil"></em></a>
+                        <a class="btn btn-danger" th:href=@{|/thread/delete/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()"><em class="fa fa-trash"></em></a>
                     </div>
                 </div>
             </div>
@@ -122,10 +130,10 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <strong th:text="${comments.createUser}">myusername</strong> commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
-                    <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}" class="btn btn-default btn-danger pull-right">
+                    <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" class="btn btn-default btn-danger pull-right">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
-                    <a th:href="@{|/thread/view/comment/edit/${comments.commentId}_comment|}" class="btn btn-default btn-primary pull-right">
+                    <a th:href="@{|/thread/view/comment/edit/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" class="btn btn-default btn-primary pull-right">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                 </div>
@@ -148,17 +156,17 @@
     <h4 class="col-md-12">Enter Comments:</h4>
     <div class="status-upload">
         <form role=form action="#" method="post" id="commentEntryForm">
-            <div class="from-group col-sm-4">
+            <div class="from-group col-sm-4" sec:authorize="isAnonymous()">
              <input placeholder="First Name" type="text" class="form-control" id="firstName"/>
             </div>
-            <div class="from-group col-sm-4">
+            <div class="from-group col-sm-4" sec:authorize="isAnonymous()">
              <input placeholder="Last Name" type="text" class="form-control col-sm-6" id="lastName"/>
             </div>
             <div class="clearfix">&nbsp;</div>
-            <div class="from-group col-md-4">
+            <div class="from-group col-md-4" sec:authorize="isAnonymous()">
              <input placeholder="Enter Username" type="text" class="form-control validate[required]" id="username"/>
             </div>
-            <div class="from-group col-md-4">
+            <div class="from-group col-md-4" sec:authorize="isAnonymous()">
              <input placeholder="Enter Password" type="password" class="form-control validate[required]" id="password"/>
             </div>
             <div class="from-group col-md-8">

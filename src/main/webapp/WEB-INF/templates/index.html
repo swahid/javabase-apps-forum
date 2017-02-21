@@ -36,7 +36,6 @@
   <script th:src="@{/resources/js/forum/search.js}"></script>
 </head>
 <body>
-
 <!-- ==== Header Start ==== -->
 <nav class="navbar navbar-inverse bg-primary ">
   <div class="container-fluid">
@@ -44,8 +43,16 @@
       <a class="navbar-brand" th:href="@{/threads}">Logo</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-        <li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a th:href="@{/login}" sec:authorize="isAnonymous()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
+    <div class="pull-right dropdown" sec:authorize="isAuthenticated()">
+        <a data-toggle="dropdown" href="#"><img th:src="@{/resources/images/avatar.jpg}" alt="" /> <span sec:authentication="name">username</span><b class="caret"></b></a>
+        <div class="status green">&nbsp;</div>
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
   </div>
 </nav>
 <!-- ==== Header END ==== -->
@@ -95,8 +102,9 @@
         <th style="width:30%">Title</th>
         <th>Topic</th>
         <th>Posted on</th>
+        <th>Edit on</th>
         <th>Comment</th>
-        <th align="center">Action <em class="glyphicon glyphicon-cog"></em></th>
+        <th align="center" sec:authorize="isAuthenticated()">Action <em class="glyphicon glyphicon-cog"></em></th>
       </tr>
     </thead>
     <tbody>
@@ -108,9 +116,10 @@
         <td th:text="${allThread.createUser}">Anna</td>
         <td> <a th:href=@{|/thread/view/${allThread.threadId}|} th:text="${allThread.threadTitle}"></a></td>
         <td th:text="${allThread.topic.topicName}">35</td>
-        <td th:text="${allThread.createDate}">New York</td>
-        <td><a class="btn btn-default" ><em class="glyphicon glyphicon-comment"></em></a></td>
-        <td align="center">
+        <td th:text="${allThread.createDate}">create Date</td>
+        <td th:text="${allThread.updateDate}">update Date</td>
+        <td><a class="btn btn-default" th:href=@{|/thread/view/${allThread.threadId}|}><em class="glyphicon glyphicon-comment"></em></a></td>
+        <td sec:authorize="isAuthenticated()">
           <a class="btn btn-warning" th:href=@{|/thread/edit/${allThread.threadId}_thread|}><em class="fa fa-pencil"></em></a>
           <a class="btn btn-danger" th:href=@{|/thread/delete/${allThread.threadId}_thread|}><em class="fa fa-trash"></em></a>
         </td>
