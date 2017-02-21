@@ -3,6 +3,7 @@
  */
 package org.javabase.apps.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,8 +17,10 @@ import org.javabase.apps.service.CommentService;
 import org.javabase.apps.service.ThreadService;
 import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,31 +46,41 @@ public class CommentsController {
     
     @ResponseBody
     @RequestMapping(value="/create",method=RequestMethod.POST)
-    public Map<String, Object> addComment(@RequestBody Map<String, String> param){
+    public Map<String, Object> addComment(@RequestBody Map<String, String> param, final Principal principal){
         Map<String, Object> response = new HashMap<>();
         
         Comment comment = new Comment();
         Thread thread   = new Thread();
         User user       = new User();
         
+        if (!StringUtils.isEmpty(param.get("password"))) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(param.get("password"));
+            user.setUsername(param.get("username"));
+            user.setPassword(hashedPassword);
+            user.setFirstName(param.get("firstName"));
+            user.setFirstName(param.get("lastName"));
+            user.setAccountActive(true);
+            user.setNonExpired(true);
+            user.setNonLocked(true);
+            user.setRegistrationDate(new Date());
+            
+            boolean addUser = userService.addUser(user);
+            if (!addUser) {
+                response.put("error", true);
+                response.put("message", "user not create");
+                return response;
+            }
+        }else {
+            param.put("createUser", principal.getName());
+        }
         String threadId = param.get("threadId");
         thread.setThreadId(Integer.valueOf(threadId));
-        user.setUsername(param.get("username"));
-        user.setPassword(param.get("password"));
-        user.setFirstName(param.get("firstName"));
-        user.setFirstName(param.get("lastName"));
-        
-        boolean addUser = userService.addUser(user);
-        if (!addUser) {
-            response.put("error", true);
-            response.put("message", "user not create");
-            return response;
-        }
         
         comment.setCommentDescription(param.get("commentDescription"));
         comment.setCommentTitle(param.get("commentTitle"));
-        comment.setCreateUser(param.get("createUser"));
         comment.setThread(thread);
+        comment.setCreateUser(param.get("createUser"));
         comment.setCreateDate(new Date());
         
         boolean save = commentService.addComment(comment);
@@ -87,16 +100,16 @@ public class CommentsController {
         
         Comment comment = new Comment();
         Thread thread   = new Thread();
-        
         String threadId = param.get("threadId");
         String commentId = param.get("commentId");
-        thread.setThreadId(Integer.valueOf(threadId));
         
-        comment.setCommentId(Integer.valueOf(commentId));
+        comment = commentService.getCommentbyId(Integer.valueOf(commentId));
+        
+        thread.setThreadId(Integer.valueOf(threadId));
         comment.setCommentDescription(param.get("commentDescription"));
         comment.setCommentTitle(param.get("commentTitle"));
-        comment.setCreateUser(param.get("updateUser"));
         comment.setThread(thread);
+        comment.setUpdateUser(param.get("createUser"));
         comment.setUpdateDate(new Date());
         
         boolean update = commentService.updateComment(comment);

@@ -91,7 +91,7 @@ $(document).ready(function($) {
             },
             success  : function(resonse) {
                 var message = resonse.message;
-//                location.href = resonse;
+                location.href = window.location;
                 document.getElementById("commentEditForm").reset()
                 $.notify(message, "success");
             },

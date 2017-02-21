@@ -130,9 +130,10 @@ public class ThreadController {
             user.setUserId(Integer.valueOf(userId));
             topic.setTopicId(Integer.valueOf(topicId));
             
-            thread.setThreadId(Integer.valueOf(threadId));
-            thread.setUser(user);
-            thread.setTopic(topic);
+            thread = threadService.getThreadbyId(Integer.valueOf(threadId));
+            
+//            thread.setUser(user);
+//            thread.setTopic(topic);
             thread.setThreadTitle(threadTitle);
             thread.setUpdateUser(updateUser);
             thread.setUpdateDate(new Date());
@@ -174,7 +175,7 @@ public class ThreadController {
         return "redirect:/threads";
     }
 
-    @RequestMapping(value="create/all_thread",method=RequestMethod.GET)
+    @RequestMapping(value="all_thread",method=RequestMethod.GET)
     public String threadCreateRedirect(){
         return "redirect:/threads";
     }
