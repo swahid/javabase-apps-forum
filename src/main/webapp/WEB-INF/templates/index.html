@@ -124,8 +124,8 @@
         <td th:text="${allThread.updateDate}">update Date</td>
         <td><a class="btn btn-default" th:href=@{|/thread/view/${allThread.threadId}|}><em class="glyphicon glyphicon-comment"></em></a></td>
         <td sec:authorize="isAuthenticated()">
-          <a class="btn btn-warning" th:href=@{|/thread/edit/${allThread.threadId}_thread|} th:onclick="'javascript:alert(hello)'"><em class="fa fa-pencil"></em></a>
-          <a class="btn btn-danger" th:href=@{|/thread/delete/${allThread.threadId}_thread|}><em class="fa fa-trash"></em></a>
+          <a class="btn btn-warning" th:href="@{|/thread/edit/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-pencil"></em></a>
+          <a class="btn btn-danger" th:href="@{|/thread/delete/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-trash"></em></a>
         </td>
       </tr>
     </tbody>

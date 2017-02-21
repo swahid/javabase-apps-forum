@@ -100,8 +100,8 @@
                     <p th:text="${viewThread.threadDescription}">Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
                     <div class="clearfix">&nbsp;</div>
                     <div class="stats pull-right">
-                        <a class="btn btn-warning" th:href=@{|/thread/edit/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger" th:href=@{|/thread/delete/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()"><em class="fa fa-trash"></em></a>
+                        <a class="btn btn-warning" th:href=@{|/thread/edit/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()" th:if="${viewThread.user.username == #authentication.name }"><em class="fa fa-pencil"></em></a>
+                        <a class="btn btn-danger" th:href=@{|/thread/delete/${viewThread.threadId}_thread|} sec:authorize="isAuthenticated()" th:if="${viewThread.user.username == #authentication.name }"><em class="fa fa-trash"></em></a>
                     </div>
                 </div>
             </div>
@@ -136,10 +136,10 @@
                     <strong th:text="${comments.createUser}">myusername</strong> 
                         commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>&nbsp;&nbsp;
                         Update on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
-                    <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" class="btn btn-default btn-danger pull-right">
+                    <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" th:if="${comments.createUser == #authentication.name }" class="btn btn-default btn-danger pull-right">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
-                    <a th:href="@{|/thread/view/comment/edit/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" class="btn btn-default btn-primary pull-right">
+                    <a th:href="@{|/thread/view/comment/edit/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" th:if="${comments.createUser == #authentication.name}" class="btn btn-default btn-primary pull-right">
                         <i class="glyphicon glyphicon-pencil"></i>
                     </a>
                 </div>

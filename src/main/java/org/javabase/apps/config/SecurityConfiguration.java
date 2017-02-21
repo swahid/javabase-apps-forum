@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/resources/**").permitAll()
             .antMatchers("/thread/view/**").permitAll()
             .antMatchers("/thread/**").authenticated()
+            .antMatchers("/thread/edit/**").authenticated()
             .antMatchers("/**").permitAll()
             .and().formLogin().loginPage("/login")
             .usernameParameter("username").passwordParameter("password")
