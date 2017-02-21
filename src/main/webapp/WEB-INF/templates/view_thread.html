@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Wahid'z Forum :: Comments </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" sizes="16x16" th:href="@{/resources/images/favicon.ico}">
@@ -88,9 +88,10 @@
                             <a th:href="@{|/view/${viewThread.threadId}|}" th:text="${viewThread.threadTitle}">Thread Title</a>
                         </div>
                         <div class="title h5">
-                            <b th:text="${viewThread.createUser}">Ryan Haywood</b> made a post.
+                            <b th:text="${viewThread.createUser}">Ryan Haywood</b> made a post on 
+                            <span th:text="${viewThread.createDate}">create date</span>&nbsp;&nbsp;
+                            update on <span th:text="${viewThread.createDate}">create date</span>
                         </div>
-                        <h6 class="text-muted time" th:text="${viewThread.createDate}">1 minute ago</h6>
                     </div>
                 </div>
                 <div class="clearfix">&nbsp;</div>
@@ -132,7 +133,9 @@
         <div class="col-sm-7">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <strong th:text="${comments.createUser}">myusername</strong> commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
+                    <strong th:text="${comments.createUser}">myusername</strong> 
+                        commented on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>&nbsp;&nbsp;
+                        Update on <span class="text-muted" th:text="${comments.createDate}">commented 5 days ago</span>
                     <a th:href="@{|/thread/view/comment/delete/${comments.commentId}_comment|}"  sec:authorize="isAuthenticated()" class="btn btn-default btn-danger pull-right">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
