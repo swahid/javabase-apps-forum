@@ -113,19 +113,21 @@
     </thead>
     <tbody>
       <tr th:if="${allThreadList.empty}">
-       <td colspan="6" align="center"> No Thread Found</td>
+          <td colspan="6" align="center"> No Thread Found</td>
       </tr>
       <tr th:each="allThread, rowStat  : ${allThreadList}">
         <td th:text="${rowStat.count}">1</td>
         <td th:text="${allThread.createUser}">Anna</td>
-        <td> <a th:href=@{|/thread/view/${allThread.threadId}|} th:text="${allThread.threadTitle}"></a></td>
+        <td> 
+            <a th:href=@{|/thread/view/${allThread.threadId}|} th:text="${allThread.threadTitle}"></a>
+        </td>
         <td th:text="${allThread.topic.topicName}">35</td>
         <td th:text="${allThread.createDate}">create Date</td>
         <td th:text="${allThread.updateDate}">update Date</td>
         <td><a class="btn btn-default" th:href=@{|/thread/view/${allThread.threadId}|}><em class="glyphicon glyphicon-comment"></em></a></td>
         <td sec:authorize="isAuthenticated()">
-          <a class="btn btn-warning" th:href="@{|/thread/edit/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-pencil"></em></a>
-          <a class="btn btn-danger" th:href="@{|/thread/delete/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-trash"></em></a>
+            <a class="btn btn-warning" th:href="@{|/thread/edit/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-pencil"></em></a>
+            <a class="btn btn-danger" th:href="@{|/thread/delete/${allThread.threadId}_thread|}" th:if="${allThread.user.username == #authentication.name }"><em class="fa fa-trash"></em></a>
         </td>
       </tr>
     </tbody>
