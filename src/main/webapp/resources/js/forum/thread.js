@@ -11,15 +11,21 @@ $(document).ready(function($) {
         if (!$("#threadCreateForm").validationEngine('validate')) {
             return;
         }
+        
+        
         var data    = {},
             url = "create";
             data["threadTitle"]         = $("#threadTitle").val();
             data["threadDescription"]   = $("#threadDescription").val();
             data["createUser"]          = $("#loginUserName").val();
-            data["topicId"]             = $("#topic option:selected").val().trim();
-            data["topicName"]           = $("#topic option:selected").text().trim();
+            data["topicId"]             = $("#topic option:selected").val();
+            data["topicName"]           = $("#topic option:selected").text();
             data["userId"]              = $("#loginUserId").val();
-        
+            
+            if ($("#topic option:selected").val() == null) {
+                data["topicName"]       = $("#addTopic").val();
+            }
+            
         var token     = $('#csrfToken').val();
         var header    = $('#csrfHeader').val();
         
@@ -99,4 +105,12 @@ $(document).ready(function($) {
         });
         
     });
+    
+    $( "#addTopicButton" ).click(function() {
+            $("#topicSection").hide();
+            $("#addTopicButton").hide();
+            $("#addTopic").removeClass("hidden");
+            $("#addTopic").show();
+            
+      });
 });

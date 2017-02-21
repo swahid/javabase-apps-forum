@@ -77,14 +77,18 @@
                     <input type="text" class="form-control validate[required]" id="threadTitle" placeholder="Title">
                 </div>
                 <div class="form-group">
+                    <label for="topicTitle">Add Topic</label>
+                    <input type="button" class="form-control btn btn-success" value="Add Topic" id="addTopicButton"/>
+                    <input type="text" class="form-control hidden validate[required]" id="addTopic"/>
+                </div>
+                <div class="form-group" id="topicSection">
                     <label for="topicTitle">Select Topic</label>
-                    <select class="form-control validate[required]" id="topic" >
+                    <select class="form-control validate[required]" id="selectTopic">
                       <option selected>Select Topic</option>
-                      <option value="1">Java</option>
-                      <option value="2">PHP</option>
-                      <option value="3">.Net</option>
-                      <option value="5">Database</option>
-                      <option value="6">Paython</option>
+                      <option th:each="topic : ${topicList}"
+                            th:value="${topic.topicId}"
+                            th:text="${topic.topicName}">
+                       </option>
                     </select>
                 </div>
                 <div class="form-group">

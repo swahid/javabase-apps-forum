@@ -53,8 +53,11 @@ public class ThreadController {
         
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
+        List<Topic> topicList = topicService.getAllTopic();
+        
         model.addAttribute("loginUser", user);
-        System.out.println(username);
+        model.addAttribute("topicList", topicList);
+        
         return "create_thread";
     }
     
