@@ -62,7 +62,7 @@
 <!-- ==== Header END ==== -->
 
 <!-- ==== CONTENT CREATOR START ==== -->
-<div class="col-md-offset-3 col-md-6 col-md-offset-3 panle-primary" th:if="${editThread ==null}">
+<div class="col-md-offset-3 col-md-6 col-md-offset-3 panle-primary" th:if="${editThread ==null}" th:object="${loginUser}">
     <div class="panle panle-primary">
         <div class="panle-header">
             <h3 class="panle-title"> Create Thread</h3>
@@ -92,8 +92,8 @@
                     <textarea class="form-control validate[required]" id="threadDescription" placeholder="Enter Description"></textarea>
                 </div>
                 <div class="row">
-                    <input type="hidden" id="loginUserId"  value="1"/>
-                    <input type="hidden" id="loginUserName"  value="admin"/>
+                    <input type="hidden" id="loginUserId"  th:value="${loginUser.userId}"/>
+                    <input type="hidden" id="loginUserName"  th:value="${loginUser.username}"/>
                     <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
                     <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
                 </div>
@@ -135,8 +135,8 @@
                 </div>
                 <div class="row">
                     <input type="hidden" id="threadIdEdit"    th:value="${editThread.threadId}"/>
-                    <input type="hidden" id="loginUserId"    value="1"/>
-                    <input type="hidden" id="loginUserName"  value="admin"/>
+                    <input type="hidden" id="loginUserId"    th:value="${editThread.user.userId}"/>
+                    <input type="hidden" id="loginUserName"  th:value="${editThread.createUser}"/>
                     <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
                     <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
                 </div>

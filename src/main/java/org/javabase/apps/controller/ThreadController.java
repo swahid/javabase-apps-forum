@@ -3,6 +3,7 @@
  */
 package org.javabase.apps.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import org.javabase.apps.entity.User;
 import org.javabase.apps.service.CommentService;
 import org.javabase.apps.service.ThreadService;
 import org.javabase.apps.service.TopicService;
+import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ThreadController {
     
     @Autowired
+    UserService userService;
+    
+    @Autowired
     ThreadService threadService;
     
     @Autowired
@@ -44,7 +49,12 @@ public class ThreadController {
     TopicService topicService;
     
     @RequestMapping(value="new",method=RequestMethod.GET)
-    public String thread(){
+    public String thread(Model model, Principal principal){
+        
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        model.addAttribute("loginUser", user);
+        System.out.println(username);
         return "create_thread";
     }
     
