@@ -4,6 +4,7 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{/resources/images/favicon.ico}">
   <!-- GET BOOTSTARP CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   
@@ -36,11 +37,14 @@
   <script th:src="@{/resources/js/forum/search.js}"></script>
 </head>
 <body>
+
 <!-- ==== Header Start ==== -->
 <nav class="navbar navbar-inverse bg-primary ">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/threads}">Logo</a>
+      <a class="navbar-brand" th:href="@{/threads}">
+            <img alt="logo" th:src="@{/resources/images/logo.png}">
+      </a>
     </div>
     <ul class="nav navbar-nav navbar-right">
         <li><a th:href="@{/login}" sec:authorize="isAnonymous()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -59,7 +63,7 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h3>Welcome Forum</h3>
+    <h3>Welcome Wahidz Forum</h3>
     <div class="col-md-14 col-sm-14 col-lg-14">
         <form class="navbar-form" role="search" th:action="@{/search}" th:object="${search}" method="post">
             <div class="input-group">
@@ -69,8 +73,8 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="#threadTitle">Title</a></li>
-                      <li><a href="#createUser">Creator</a></li>
-                      <li><a href="#threadDescription">Description</a></li>
+                      <li><a href="#threadDescription">Body</a></li>
+                      <li><a href="#createUser">Contributor</a></li>
                     </ul>
                 </div>
                 <input type="text" class="form-control" placeholder="Search" name="q" th:field="*{threadDescription}">
