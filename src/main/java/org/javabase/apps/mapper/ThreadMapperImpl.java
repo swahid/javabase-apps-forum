@@ -3,6 +3,7 @@
  */
 package org.javabase.apps.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.javabase.apps.entity.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 /**
  * @author      Saurav Wahid<saurav1161@gmail.com>
@@ -69,10 +71,18 @@ public class ThreadMapperImpl implements ThreadMapper{
     
     @Override
     public List<Thread> searchThreadByParam(String searchBy, String searchParam) {
-        String hql = "FROM Thread t WHERE t."+searchBy+" Like :searchParam";
+        List<Thread> threadList = new ArrayList<>();
+        if (searchBy.equalsIgnoreCase("searchBy") || StringUtils.isEmpty(searchParam)) {
+            
+        }else {
+            if (searchBy.equalsIgnoreCase("threadDescription") || searchBy.equalsIgnoreCase("threadTitle") || searchBy.equalsIgnoreCase("createUser")) {
+                String hql = "FROM Thread t WHERE t."+searchBy+" Like :searchParam";
+                Query query = session.getCurrentSession().createQuery(hql);
+                threadList =query.setParameter("searchParam", searchParam+ "%").list();
+            }
+            
+        }
         
-        Query query = session.getCurrentSession().createQuery(hql);
-        List<Thread> threadList =query.setParameter("searchParam", searchParam+ "%").list();
         
         return threadList;
     }

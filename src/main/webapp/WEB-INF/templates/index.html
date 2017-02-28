@@ -113,7 +113,7 @@
     </thead>
     <tbody>
       <tr th:if="${allThreadList.empty}">
-          <td colspan="6" align="center"> No Thread Found</td>
+          <td colspan="7" align="center"> No Thread Found</td>
       </tr>
       <tr th:each="allThread, rowStat  : ${allThreadList}">
         <td th:text="${rowStat.count}">1</td>
